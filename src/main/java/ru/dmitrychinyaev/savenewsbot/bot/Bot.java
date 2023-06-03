@@ -7,11 +7,13 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.dmitrychinyaev.savenewsbot.configuration.BotConfiguration;
 import ru.dmitrychinyaev.savenewsbot.entity.Message;
+import ru.dmitrychinyaev.savenewsbot.service.BotService;
 
 @RequiredArgsConstructor
 public class Bot extends TelegramLongPollingBot {
 
     private final BotConfiguration botConfiguration;
+    private final BotService botService;
 
     @Override
     public String getBotUsername() {
@@ -35,6 +37,7 @@ public class Bot extends TelegramLongPollingBot {
             String textToSave = update.getMessage().getText();
 
             Message messageToSave = new Message(dateOfMessage, username, textToSave);
+            botService.saveMessage(messageToSave);
         }
     }
 
