@@ -27,7 +27,6 @@ public class Bot extends TelegramLongPollingBot {
 
     @Override
     public void onUpdateReceived(Update update) {
-
         if (update.hasMessage() && update.getMessage().hasText()) {
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
@@ -38,6 +37,15 @@ public class Bot extends TelegramLongPollingBot {
 
             Message messageToSave = new Message(dateOfMessage, username, textToSave);
             botService.saveMessage(messageToSave);
+
+            switch (messageText){
+                case "/start" -> {
+
+                }
+                case "/help" -> {
+                    System.out.println();
+                }
+            }
         }
     }
 
