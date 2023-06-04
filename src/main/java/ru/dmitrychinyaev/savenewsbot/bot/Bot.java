@@ -8,6 +8,7 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import ru.dmitrychinyaev.savenewsbot.configuration.BotConfiguration;
 import ru.dmitrychinyaev.savenewsbot.entity.Message;
 import ru.dmitrychinyaev.savenewsbot.service.BotService;
+import ru.dmitrychinyaev.savenewsbot.entity.BotCommons;
 
 @RequiredArgsConstructor
 public class Bot extends TelegramLongPollingBot {
@@ -38,12 +39,24 @@ public class Bot extends TelegramLongPollingBot {
             Message messageToSave = new Message(dateOfMessage, username, textToSave);
             botService.saveMessage(messageToSave);
 
-            switch (messageText){
-                case "/start" -> {
+            switch (messageText) {
+                case BotCommons.COMMAND_START -> {
 
                 }
-                case "/help" -> {
+                case BotCommons.COMMAND_HELP -> {
                     System.out.println();
+                }
+                case BotCommons.COMMAND_SHOW_MESSAGES -> {
+                    //TODO request password
+                }
+                case "password" -> {
+                    //TODO show all messages
+                }
+                case "delete all messages" -> {
+                    //TODO write delete all messages + password
+                }
+                case "delete all messages + password" -> {
+                    //TODO
                 }
             }
         }
