@@ -35,28 +35,30 @@ public class Bot extends TelegramLongPollingBot {
             Integer dateOfMessage = update.getMessage().getDate();
             String username = update.getMessage().getChat().getUserName();
             String textToSave = update.getMessage().getText();
-
             Message messageToSave = new Message(dateOfMessage, username, textToSave);
-            botService.saveMessage(messageToSave);
 
             switch (messageText) {
                 case BotCommons.COMMAND_START -> {
-
+                    sendMessage(chatId, String.format(BotCommons.START_TEXT, username));
                 }
                 case BotCommons.COMMAND_HELP -> {
-                    System.out.println();
+                    sendMessage(chatId, BotCommons.HELP_TEXT);
                 }
                 case BotCommons.COMMAND_SHOW_MESSAGES -> {
-                    //TODO request password
+                    sendMessage(chatId, BotCommons.REQUEST_PASSWORD_TEXT);
                 }
-                case "password" -> {
-                    //TODO show all messages
+                case BotCommons.BASIC_PASSWORD_MESSAGES -> {
+                    sendMessage(chatId, botService.showAllMessages().toString());
                 }
-                case "delete all messages" -> {
-                    //TODO write delete all messages + password
+                case BotCommons.COMMAND_DELETE_MESSAGES -> {
+                    sendMessage(chatId, BotCommons.REQUEST_DELETE_MESSAGES_PASSWORD);
                 }
-                case "delete all messages + password" -> {
-                    //TODO
+                case BotCommons.BASIC_PASSWORD_DELETE -> {
+                    botService.deleteMessage();
+                    sendMessage(chatId, BotCommons.SUCCESS_DELETE);
+                }
+                default -> {
+                    botService.saveMessage(messageToSave);
                 }
             }
         }

@@ -9,4 +9,11 @@ public class Message {
     private Integer date;
     private String authorName;
     private String text;
+
+    @Override
+    public String toString() {
+        return "Прислано: " + authorName + "\n" +
+                "Дата: " + date + "\n" +
+                text + "\n";
+    }
 }
