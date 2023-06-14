@@ -58,7 +58,7 @@ public class Bot extends TelegramLongPollingBot {
                     sendMessage(chatId, BotCommons.SUCCESS_DELETE);
                 }
                 default -> {
-                    botService.saveMessage(messageToSave);
+                    sendMessage(chatId, botService.saveMessage(messageToSave));
                 }
             }
         }

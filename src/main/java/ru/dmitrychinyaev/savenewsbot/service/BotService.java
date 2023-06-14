@@ -2,6 +2,7 @@ package ru.dmitrychinyaev.savenewsbot.service;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import ru.dmitrychinyaev.savenewsbot.entity.BotCommons;
 import ru.dmitrychinyaev.savenewsbot.entity.Message;
 import ru.dmitrychinyaev.savenewsbot.repository.MessageRepository;
 
@@ -11,9 +12,15 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BotService {
     private final MessageRepository messageRepository;
+    private final WordFilter wordFilter;
 
-    public void saveMessage(Message message){
-        messageRepository.save(message);
+    public String saveMessage(Message message) {
+        if (wordFilter.testMat(message.getText())) {
+            messageRepository.save(message);
+            return BotCommons.SUCCESS_SAVE;
+        }else {
+            return BotCommons.SWEARING_MESSAGE;
+        }
     }
 
     public List<Message> showAllMessages(){return messageRepository.findAll();}

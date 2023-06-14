@@ -15,11 +15,15 @@ public class BotCommons {
     public static final String HELP_TEXT = "Чтобы сообщить об увиденном событии, достаточно просто " +
             "написать сообщение в удобной для вас форме Пожалуйста, ваше сообщение должно содержать " +
             "короткий адрес происшествия, например, 'На улице Кирова...' ";
+    //password
     public static final String REQUEST_PASSWORD_TEXT = "Пожалуйста, введите пароль для просмотра сообщений";
     public static final String REQUEST_DELETE_MESSAGES_PASSWORD = "Пожалуйста, введите пароль " +
             "для удаления всех сообщений";
     public static final String BASIC_PASSWORD_MESSAGES = "111";
     public static final String BASIC_PASSWORD_DELETE = "1212";
-
+    //answer
     public static final String SUCCESS_DELETE = "Удаление завершено";
+    public static final String SUCCESS_SAVE = "Спасибо за новость! Ваше сообщение сохранено!";
+    public static final String SWEARING_MESSAGE = "В Вашем сообщении присутствует ненормативная лексика! Сообщение не сохранено";
+
 }
