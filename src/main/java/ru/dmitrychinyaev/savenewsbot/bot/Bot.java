@@ -1,6 +1,8 @@
 package ru.dmitrychinyaev.savenewsbot.bot;
 
+import lombok.Data;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
@@ -10,7 +12,11 @@ import ru.dmitrychinyaev.savenewsbot.entity.Message;
 import ru.dmitrychinyaev.savenewsbot.service.BotService;
 import ru.dmitrychinyaev.savenewsbot.entity.BotCommons;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @RequiredArgsConstructor
+@Component
 public class Bot extends TelegramLongPollingBot {
 
     private final BotConfiguration botConfiguration;
@@ -32,8 +38,8 @@ public class Bot extends TelegramLongPollingBot {
             String messageText = update.getMessage().getText();
             long chatId = update.getMessage().getChatId();
 
-            Integer dateOfMessage = update.getMessage().getDate();
-            String username = update.getMessage().getChat().getUserName();
+            String dateOfMessage = getDate();
+            String username = update.getMessage().getChat().getFirstName() + " " + update.getMessage().getChat().getLastName();
             String textToSave = update.getMessage().getText();
             Message messageToSave = new Message(dateOfMessage, username, textToSave);
 
@@ -48,7 +54,7 @@ public class Bot extends TelegramLongPollingBot {
                     sendMessage(chatId, BotCommons.REQUEST_PASSWORD_TEXT);
                 }
                 case BotCommons.BASIC_PASSWORD_MESSAGES -> {
-                    sendMessage(chatId, botService.showAllMessages().toString());
+                    sendMessage(chatId, botService.showAllMessages());
                 }
                 case BotCommons.COMMAND_DELETE_MESSAGES -> {
                     sendMessage(chatId, BotCommons.REQUEST_DELETE_MESSAGES_PASSWORD);
@@ -74,5 +80,11 @@ public class Bot extends TelegramLongPollingBot {
         } catch (TelegramApiException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private String getDate(){
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat(BotCommons.DATE_FORMATTER);
+        return formatter.format(date);
     }
 }

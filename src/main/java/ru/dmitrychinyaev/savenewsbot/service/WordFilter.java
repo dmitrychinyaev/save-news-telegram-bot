@@ -11,7 +11,7 @@ public class WordFilter {
     public boolean testMat(String text) {
         for (String s : testArray) {
             Pattern pattern = Pattern.compile(s);
-            Matcher matcher = pattern.matcher(text);
+            Matcher matcher = pattern.matcher(text.toLowerCase());
             if (matcher.find()) {
                 return false;
             }

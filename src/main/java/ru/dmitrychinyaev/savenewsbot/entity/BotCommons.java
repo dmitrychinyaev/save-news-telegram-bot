@@ -25,5 +25,5 @@ public class BotCommons {
     public static final String SUCCESS_DELETE = "Удаление завершено";
     public static final String SUCCESS_SAVE = "Спасибо за новость! Ваше сообщение сохранено!";
     public static final String SWEARING_MESSAGE = "В Вашем сообщении присутствует ненормативная лексика! Сообщение не сохранено";
-
+    public static final String DATE_FORMATTER = "dd.MM.yyyy HH:mm:ss";
 }

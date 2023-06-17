@@ -23,6 +23,14 @@ public class BotService {
         }
     }
 
-    public List<Message> showAllMessages(){return messageRepository.findAll();}
+    public String showAllMessages(){
+        List<Message> messageList = messageRepository.findAll();
+        StringBuilder stringBuilder = new StringBuilder();
+        for (Message s:messageList ) {
+            stringBuilder.append(s.toString()).append("\n");
+        }
+        return stringBuilder.toString();
+    }
+
     public void deleteMessage(){messageRepository.deleteAll();}
 }
